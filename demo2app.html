@@ -1,6 +1,12 @@
-
 <!-- saved from url=(0109)https://learn.nyp.edu.sg/bbcswebdav/pid-6138245-dt-content-rid-51145975_1/courses/2021S1-IT3100/demo2app.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><header>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+    <header>
         <script src="./demo2app_files/vue@next"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="./demo2app_files/materialize.min.css">
@@ -9,11 +15,44 @@
         <script src="./demo2app_files/materialize.min.js.download"></script>
 
     </header>
-    
-        <div id="demo2app" style="padding: 40px" data-v-app=""><div class="card-panel"><div class="row"><div class="input-field col s3"><input placeholder="" id="sepalLength" type="text" class="validate"><label for="sepalLength" class="active">Sepal Length</label></div><div class="input-field col s3"><input placeholder="" id="sepalWidth" type="text" class="validate"><label for="sepalWidth" class="active">Sepal Width</label></div><div class="input-field col s3"><input placeholder="" id="petalLength" type="text" class="validate"><label for="petalLength" class="active">Petal Length</label></div><div class="input-field col s3"><input placeholder="" id="petalWidth" type="text" class="validate"><label for="petalWidth" class="active">Petal Width</label></div></div><div class="row"><a class="waves-effect waves-light btn">Predict</a></div></div></div>
-        
 
-        <script type="text/javascript" src="./demo2app_files/demo2app.js.download">
-        </script>
-    
-</body></html>
+    <div id="application" style="padding: 40px" data-v-app="">
+        <div class="card-panel">
+            <div class="row">
+                <div class="input-field col s4">
+                    <input placeholder="" id="income" type="text" class="validate" v-model="income">
+                    <label for="income" class="active">Income</label></div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="loan_perc_income" type="text" class="validate" v-model="loan_perc_income">
+                    <label for="loan_perc_income" class="active">Loan percent of income</label></div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="loan_grade" type="text" class="validate" v-model="loan_grade">
+                    <label for="loan_grade" class="active">Loan Grade</label>
+                </div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="loan_int_rate" type="text" class="validate" v-model="loan_int_rate">
+                    <label for="loan_int_rate" class="active">Loan interest rate</label>
+                </div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="person_home_ownership_rent" type="text" class="validate" v-model="person_home_ownership_rent">
+                    <label for="person_home_ownership_rent" class="active">Is loan used for home ownership rent?</label>
+                </div>
+                <div class="input-field col s4">
+                    <input placeholder="" id="defaulted" type="text" class="validate" v-model="defaulted">
+                    <label for="defaulted" class="active">Defaulted before?</label>
+                </div>
+            </div>
+            <p>[50000, 0.5, 0, 5.00, 1, 0]</p>
+            <div class="row">
+                <a class="waves-effect waves-light btn" v-on:click="predictCredit">Predict</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="demo2app.js">
+    </script>
+
+</body>
+
+</html>

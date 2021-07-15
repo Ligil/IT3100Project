@@ -18,6 +18,7 @@ const demo1App = {
     }, 
     methods: {
         addNewItem: function() {
+            console.log(this.inputTaskDesc) 
             this.toDoList.push({
                 title: this.inputTaskTitle,
                 desc: this.inputTaskDesc
