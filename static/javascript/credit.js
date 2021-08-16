@@ -17,20 +17,20 @@ const app = {
 
     data() {
         return {
-            name: "Trillium",
-            email: "trilliumtay@gmail.com",
-            age: "20",
+            name: null,
+            email: null,
+            age: null,
 
-            loan_amnt: "10000",
-            income: "50000",
+            loan_amnt: null,
+            income: null,
             loan_grade: "0",
-            loan_int_rate: "5",
+            loan_int_rate: null,
             person_home_ownership_rent: "0",
             defaulted: "0",
 
             class_result: null,
             class_confi: null,
-            regress_result: "102"
+            regress_result: null,
             
         }
     },
@@ -56,7 +56,7 @@ const app = {
                         defaulted: this.defaulted
                     }
                 ))
-                fetch('http://127.0.0.1:5000/predictCredit', {
+                fetch('http://127.0.0.1:8000/predictCredit', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const app = {
                     .then(result => {
                         
                         this.class_result = result.classResult
-                        this.class_confi = result.class_confi
+                        this.class_confi = result.classProba
                         this.regress_result = result.regressResult
     
                         db.collection("customers").add({
@@ -94,7 +94,6 @@ const app = {
                         })
                         .then(() => {
                             console.log("Document successfully written!");
-                            toastr.success('Hi! I am success message.');
                             window.scrollTo(0,document.body.scrollHeight);
                         })
                         .catch((error) => {
@@ -104,7 +103,7 @@ const app = {
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert("Error getting prediction results, please contact trilliumtay@gmail.com for help")
+                        alert("Error 101: Error getting prediction results, please contact trilliumtay@gmail.com for help")
                     });
             } else {
                 alert("All fields must not be empty!")
@@ -114,7 +113,17 @@ const app = {
 
         },
 
-        firebaseTest: function () {
+        resetInputs: function(){
+            this.name = null,
+            this.email = null,
+            this.age = null,
+
+            this.loan_amnt = null,
+            this.income = null,
+            this.loan_grade = "0",
+            this.loan_int_rate = null,
+            this.person_home_ownership_rent =  "0",
+            this.defaulted = "0"
         }
 
 

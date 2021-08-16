@@ -41,6 +41,25 @@ const app = {
         });
     },
     methods: {
+        sendLoanId: function (id) {
+            console.log(id)
+
+            var form = document.createElement('form');
+            document.body.appendChild(form);
+            form.target = '_blank';
+            form.method = 'post';
+            form.action = '/records';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id';
+            input.value = id;
+
+            form.appendChild(input);
+            form.submit();
+            document.body.removeChild(form);            
+
+        }
 
     }
 }

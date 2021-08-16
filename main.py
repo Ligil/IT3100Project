@@ -79,9 +79,11 @@ def customers():
 
 @app.route("/records", methods=['GET', 'POST'])
 def records():
-    # if session.get('logged_in') != True:
-    #     return redirect('/')
-    return render_template('records.html')
+    id = None
+    if request.form.get("id") != None:
+        id = request.form["id"]
+        print(id)
+    return render_template('records.html', id=id)
 
 if __name__ == "__main__":
     app.run(debug=False)

@@ -25,8 +25,8 @@
         <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
 
-
-
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
         <style>
             body {
@@ -125,6 +125,9 @@
     <main style="margin-top: 58px;">
 
         <div id="application" style="padding: 40px" data-v-app="">
+
+            <input id="adding_id" value="{{ id }}" style="display: none;">
+            
             <div class="card-panel">
                 <h1 style="padding-left: 1.5rem">Loan Records</h1>
                 <p style="padding-left: 1.5rem">Records of existing loans with customers</p>
@@ -137,7 +140,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
                             <div>
-                                <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
+                                <button id="addRecordAccordion" class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
                                     data-mdb-target="#flush-collapseOne" aria-expanded="false"
                                     aria-controls="flush-collapseOne" style="font-size: 16px;">
                                     Add Loan Record
@@ -149,24 +152,110 @@
                             aria-labelledby="flush-headingOne" data-mdb-parent="#accordionFlushExample">
                             <div class="accordion-body">
 
-                
-                                <div class="mt-2">
-                                    <h3>Customer Details</h3>
+                                <div>
+                                    <h3 style="padding-left: 1.5rem">Customer Details</h3>
                                 </div>
-                                <div class="d-flex flex-row" style="padding: 0px">
-                                    <div class="col-sm-6 col-lg-6 col-xl-3 mt-2" style="padding-right: 15px;">
+                
+                                <div class="d-flex flex-row">
+                                    <div class="form-check col-sm-8 col-lg-6 col-xl-3 mt-2">
                                         <label for="name" class="active">Name</label>
                                         <input placeholder="" id="name" type="text" class="validate" v-model="name" @change="test">
                                     </div>
-                                    <div class="col-sm-4 col-lg-2 col-xl-1 mt-2">
+                                    <div class="form-check col-sm-4 col-lg-2 col-xl-1 mt-2">
                                         <label for="age" class="active">Age</label>
                                         <input placeholder="" id="age" type="text" class="validate" v-model="age">
                                     </div>
                                 </div>
                 
-                                <div class="col-sm-6 col-lg-4 col-xl-4 mt-3">
+                                <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
                                     <label for="email" class="active">Email</label>
                                     <input placeholder="" id="email" type="text" class="validate" v-model="email">
+                                </div>
+                
+                                <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                                    <label for="income" class="active">What is their income?</label>
+                                    <input placeholder="" id="income" type="text" class="validate" v-model="income">
+                                </div>
+                
+                                <hr>
+                
+                                <div style="padding-left: 1.5rem">
+                                    <h3>Loan Details</h3>
+                                </div>
+                
+                                <div class="mt-3">
+                                    <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                                        <label for="loan_amnt" class="active">How much is the loan?</label>
+                                        <input placeholder="" id="loan_amnt" type="text" class="validate" v-model="loan_amnt">
+                                    </div>
+                
+                                    <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                                        <label for="loan_duration" class="active">How long is the loan? (In months)</label>
+                                        <input placeholder="" id="loan_duration" type="text" class="validate" v-model="loan_duration">
+                                    </div>
+                
+                                    <div class="form-check col-sm-12 col-lg-6 col-xl-2 mt-3">
+                                        <label for="loan_grade" class="active">What is their loan grade?</label>
+                                        <select v-model="loan_grade" style="display: block">
+                                            <option disabled value="">Please select one</option>
+                                            <option value="0">A</option>
+                                            <option value="1">B</option>
+                                            <option value="2">C</option>
+                                        </select>
+                                    </div>
+                
+                                    <div class="form-check col-sm-12 col-lg-6 col-xl-4 mt-3">
+                                        <label for="loan_int_rate" class="active">What is their loan interest rate? (%)</label>
+                                        <input placeholder="" id="loan_int_rate" type="text" class="validate" v-model="loan_int_rate">
+                                    </div>
+                
+                                    <div class="form-check mt-3">
+                                        <label for="test" class="active" style="font-size: 16px;">Is loan used for ownership
+                                            rent?</label>
+                                        <!-- Default checked radio -->
+                                        <div class="d-flex flex-row mt-1" style="font-size: 16px;">
+                                            <div class="form-check" style="margin-right:10px;">
+                                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                                    name="owner1" id="owner1" value="1" v-model="person_home_ownership_rent">
+                                                <label class="form-check-label" for="owner1" style="vertical-align: middle;">
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                                    name="owner0" id="owner0" value="0" v-model="person_home_ownership_rent">
+                                                <label class="form-check-label" for="owner0">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="form-check col-sm-12 col-lg-6 col-xl-3 mt-3">
+                                        <label for="defaulted" class="active">Have they defaulted before?</label>
+                                        <div class="d-flex flex-row mt-1" style="font-size: 16px;">
+                                            <div class="form-check" style="margin-right:10px;">
+                                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                                    name="default1" id="default1" value="1" v-model="defaulted" @change="whatOwner">
+                                                <label class="form-check-label" for="owner1" style="vertical-align: middle;">
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                                    name="default0" id="default0" value="0" v-model="defaulted" @change="whatOwner">
+                                                <label class="form-check-label" for="owner0">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                </div>
+
+                                <div style="padding-left: 1.5rem; margin-top: 10px;">
+                                    <a class="waves-effect waves-light btn" style="margin-right: 10px;" v-on:click="addToLoan">Add Record</a>
+                                    <a class="waves-effect waves-light btn" v-on:click="resetInputs">Reset Inputs</a>
                                 </div>
 
                             </div>
@@ -175,6 +264,9 @@
                 </div>
 
                 <hr>
+
+                <h3 style="padding-left: 1.5rem">Loan Records</h3>
+
 
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item" v-for="(loan, index) in loans">
@@ -186,43 +278,41 @@
                                 <div class="d-flex flex-row w-100">
                                     <p class="col-sm-3">{{ '{{ loan.name }}' }}</p>
                                     <p class="col-sm-5">{{ '{{ loan.datetime }}' }}</p>
-                                    <p>{{ '{{ loan.loan }}' }}</p>
+                                    <p>{{ '{{ loan.prediction }}' }}</p>
                                 </div>
                             </button>
                         </h2>
                         <div :id="'flush-collapse' + index" class="accordion-collapse collapse"
                             :aria-labelledby="'flush-heading' + index" data-mdb-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                <p>Details</p>
+                            
+                                <p>Customer Details</p>
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <td style="width:15%; min-width: 100px;">Firebase Id: </td>
-                                            <td>{{ '{{ loan.id }}' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Name: </td>
-                                            <td>{{ '{{ loan.name }}' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Email: </td>
-                                            <td>{{ '{{ loan.email }}' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>loan made time: </td>
-                                            <td>{{ '{{ loan.datetime }}' }}</td>
+                                            <td style="width:15%; min-width: 100px;">Customer Name: </td>
+                                            <td style="width:35%; min-width: 100px;">{{ '{{ loan.name }}' }}</td>
+                                            <td style="width:15%; min-width: 100px;">Customer Email: </td>
+                                            <td style="width:35%; min-width: 100px;">{{ '{{ loan.email }}' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Income: </td>
                                             <td>${{ '{{ loan.income }}' }}</td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
+                                    </tbody>
+                                </table>
+
+                                
+                                <p style="margin-top: 15px;">Loan Details</p>
+                                <table class="table">
+                                    <tbody>
                                         <tr>
-                                            <td>Loan Amount:</td>
-                                            <td>${{ '{{ loan.loan_amnt }}' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Loan Interest Rate:</td>
-                                            <td>{{ '{{ loan.loan_int_rate }}' }}% Yearly</td>
+                                            <td style="width:15%; min-width: 100px;">Loan Amount:</td>
+                                            <td style="width:35%; min-width: 100px;">${{ '{{ loan.loan_amnt }}' }}</td>
+                                            <td style="width:15%; min-width: 100px;">Loan Interest Rate:</td>
+                                            <td style="width:35%; min-width: 100px;">{{ '{{ loan.loan_int_rate }}' }}% Yearly</td>
                                         </tr>
                                         <tr>
                                             <td>Loan used for rent?: </td>
@@ -232,17 +322,32 @@
                                             <td v-else-if="loan.person_home_ownership_rent === '0'">
                                                 No
                                             </td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
-                                            <td>loan: </td>
-                                            <td>{{ '{{ loan.loan }}' }}</td>
-                                        </tr>
-                                        <tr>
+                                            <td>Predicted Result: </td>
+                                            <td>{{ '{{ loan.prediction }}' }}</td>
                                             <td>Confidence: </td>
-                                            <td>{{ '{{ loan.confidence }}' }}</td>
+                                            <td>{{ '{{ loan.confidence }}' }}%</td>
                                         </tr>
                                     </tbody>
                                 </table>
+
+
+                                <p style="margin-top: 15px;">Additional Details</p>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:15%; min-width: 100px;">Firebase Id: </td>
+                                            <td style="width:35%; min-width: 100px;">{{ '{{ loan.id }}' }}</td>
+                                            <td style="width:15%; min-width: 100px;">Record Creation Time: </td>
+                                            <td style="width:35%; min-width: 100px;">{{ '{{ loan.datetime }}' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
                             </div>
                         </div>
 

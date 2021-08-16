@@ -49,20 +49,17 @@ def predict():
 
     creditResult = CreditClassif.predict([[age, loan_amnt, income, loan_perc_income, loan_grade, loan_int_rate, person_home_ownership_rent, defaulted]])
     classProba = CreditClassif.predict_proba([[age, loan_amnt, income, loan_perc_income, loan_grade, loan_int_rate, person_home_ownership_rent, defaulted]])
-    confidence = max(classProba[0])
-    print(confidence)
+    confidence = round(max(classProba[0]), 4) * 100
     regressResult = CreditRegress.predict([[age, income, loan_grade, loan_int_rate, person_home_ownership_rent, defaulted]])
     # Return the result to your app or Postman
-    return jsonify({   'classResult' : target[int(creditResult[0])], 'classProba' : confidence,  'regressResult' : regressResult[0]  })
+    return jsonify({   'classResult' : target[int(creditResult[0])], 'classProba' : confidence,  'regressResult' : round(regressResult[0], 2)  })
 
 
 @app.route('/test', methods=['POST'])
 def test():
-    
-
     return jsonify("Test")
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=False, port=8000)
 
 

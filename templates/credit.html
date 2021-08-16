@@ -79,6 +79,34 @@
                 font-size: 15px;
             }
 
+            /* Tooltip container */
+            .tooltip {
+                position: relative;
+                display: inline-block;
+                border-bottom: 1px dotted black;
+                opacity: 1;
+                /* If you want dots under the hoverable text */
+            }
+
+            /* Tooltip text */
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 120px;
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+
+                /* Position the tooltip text - see examples below! */
+                position: absolute;
+                z-index: 1;
+            }
+
+            /* Show the tooltip text when you mouse over the tooltip container */
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+            }
         </style>
 
         <!-- Sidebar -->
@@ -155,7 +183,7 @@
                 </div>
 
                 <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
-                    <label for="income" class="active">What is their income?</label>
+                    <label for="income" class="active">What is their yearly income?</label>
                     <input placeholder="" id="income" type="text" class="validate" v-model="income">
                 </div>
 
@@ -235,32 +263,45 @@
 
                 <br>
 
-                <div style="padding-left: 1.5rem">
-                    <a class="waves-effect waves-light btn" v-on:click="predictCredit">Predict</a>
+                <div style="padding-left: 1.5rem" class="d-flex flex-row">
+                    <a class="waves-effect waves-light btn" style="margin-right: 10px;" v-on:click="predictCredit">Predict</a>
+                    <a class="waves-effect waves-light btn" v-on:click="resetInputs">Reset Inputs</a>
                 </div>
 
                 <hr class="mt-5">
 
 
-                <div id="p_result" style="padding-left: 1.5rem" class="mt-3">
+                <div id="p_result" style="padding-left: 1.5rem" class="mt-3" v-if="class_result != null">
                     <h3>Prediction Result</h3>
                     <div v-if="class_result == 'Default'">
                         <p>Customer will default!</p>
-                        <img class="m-5" src="{{ url_for('static',filename='images/cross.png') }}" height="250" alt="" loading="lazy" />
+                        <img class="m-5" src="{{ url_for('static',filename='images/cross.png') }}" height="250" alt=""
+                            loading="lazy" />
                     </div>
                     <div v-else-if="class_result == 'Non-default'">
                         <p>Customer will not default!</p>
-                        <img class="m-5" src="{{ url_for('static',filename='images/tick.png') }}" height="250" alt="" loading="lazy" />
+                        <img class="m-5" src="{{ url_for('static',filename='images/tick.png') }}" height="250" alt=""
+                            loading="lazy" />
                     </div>
 
                     <h4>Additional Details</h4>
-                    <p>Recommended Loan Amount:
-                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ regress_result }}</a>
-                    </p>
-                    <p>Classification Confidence: 
-                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ class_confi }}</a>
-                    </p>
 
+                    <div class="d-flex flex-row">
+
+                        <div style="margin-right: 10px;">Recommended Loan Amount:</div>
+                        <div class="tooltip">${{ '{{ regress_result }}' }}
+                            <span class="tooltiptext">A loan amount closer to this value is more likely for the customer to not default.</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row">
+                        <div style="margin-right: 10px;">Classification Confidence:
+                        </div>
+                        
+                        <div class="tooltip">{{ '{{ class_confi }}' }}%
+                            <span class="tooltiptext">This number represents how sure the machine is about the predicted result.</span>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -275,12 +316,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
 
     <script type="text/javascript" src="{{ url_for('static',filename='javascript/credit.js') }}">
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
     </script>
 
 </body>
