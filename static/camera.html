@@ -1,0 +1,67 @@
+<html>
+
+    <script>
+        // Starts the web cam
+        //
+        function startWebcam() {
+            // TODO:
+            // Add codes to initialize the streaming web cam
+            // into our video component.
+        }
+
+
+        // Captures an image frame (in PNG format) from the video 
+        // and returns it.
+        //
+        function takePhoto() 
+        {
+            // TODO:
+            // Take a photo still from the video frame and
+            // display it in our canvas.
+        }
+
+
+        // Extract the blob from the canvas and post it up to our API
+        //
+        function postPhoto()
+        {
+            // TODO:
+            // Extract the PNG image from the canvas, post it
+            // up to our API, and display the results.
+        }
+
+
+        
+        // Initialize the application by starting the web cam
+        // This method is called by the body's onload event.
+        //
+        function init() {
+
+            // When the take photo button is clicked, takes a photo from the video frame,
+            // displays it in the canvas, uploads it to our API and displays
+            // the result.
+            //
+            document.getElementById('takePhotoButton').addEventListener('click', function() {
+                takePhoto();
+                postPhoto();
+            })
+
+            startWebcam();
+        }
+
+    </script>
+    <body onload="init();">
+        
+        <div>
+            <h1>Current video stream</h1>
+            <button id="takePhotoButton">Take Photo</button>
+            <br/>
+
+            <video id="video" controls autoplay></video>
+            <canvas id="canvas"></canvas>                
+
+        </div>
+
+    </body>
+    
+</html>

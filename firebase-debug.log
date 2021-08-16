@@ -1,0 +1,21 @@
+[debug] [2021-08-04T13:16:49.270Z] ----------------------------------------------------------------------
+[debug] [2021-08-04T13:16:49.275Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\trill\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-08-04T13:16:49.276Z] CLI Version:   9.16.0
+[debug] [2021-08-04T13:16:49.276Z] Platform:      win32
+[debug] [2021-08-04T13:16:49.276Z] Node Version:  v12.16.2
+[debug] [2021-08-04T13:16:49.278Z] Time:          Wed Aug 04 2021 21:16:49 GMT+0800 (Singapore Standard Time)
+[debug] [2021-08-04T13:16:49.278Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-04T13:16:49.292Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-04T13:16:49.293Z] > authorizing via signed-in user (ligilblightguard@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\trill\Desktop\Gitkraken\IT3100Project
+

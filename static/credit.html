@@ -1,0 +1,289 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+    <header>
+
+        <script src="../demo2app_files/vue@next"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="../demo2app_files/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="../demo2app_files/materialize.min.js.download"></script>
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <!-- MDB -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+
+        <!-- MDB -->
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
+        <!-- Jquery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background-color: #fbfbfb;
+            }
+
+            @media (min-width: 991.98px) {
+                main {
+                    padding-left: 240px;
+                }
+            }
+
+            /* Sidebar */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                padding: 58px 0 0;
+                /* Height of navbar */
+                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+                width: 240px;
+                z-index: 600;
+            }
+
+            @media (max-width: 991.98px) {
+                .sidebar {
+                    width: 100%;
+                }
+            }
+
+            .sidebar .active {
+                border-radius: 5px;
+                box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+            }
+
+            .sidebar-sticky {
+                position: relative;
+                top: 0;
+                height: calc(100vh - 48px);
+                padding-top: 0.5rem;
+                overflow-x: hidden;
+                overflow-y: auto;
+                /* Scrollable contents if viewport is shorter than content. */
+            }
+
+            label {
+                font-size: 15px;
+            }
+
+        </style>
+
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <a href="/static/credit.html" class="list-group-item list-group-item-action py-2 ripple active"
+                        aria-current="true">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Credit Prediction</span>
+                    </a>
+                    <a href="/static/customers.html" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-chart-area fa-fw me-3"></i><span>Prediction Results</span>
+                    </a>
+                    <a href="/static/records.html" class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-book fa-fw me-3"></i><span>Loan Records</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler " type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="#">
+                    <img src="/static/logo.png" height="25" alt="" loading="lazy" />
+                </a>
+
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+
+    </header>
+
+
+
+    <main style="margin-top: 58px;">
+
+        <div id="application" style="padding: 40px" data-v-app="">
+            <div class="card-panel">
+                <div class="form-check">
+                    <h1>Credit Prediction</h1>
+                    <p>Give's you a machine's guess on whether the customer would default or not on their loan</p>
+                </div>
+                <hr>
+
+                <div style="padding-left: 1.5rem">
+                    <h3>Customer Details</h3>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="form-check col-sm-8 col-lg-6 col-xl-3 mt-2">
+                        <label for="name" class="active">Name</label>
+                        <input placeholder="" id="name" type="text" class="validate" v-model="name" @change="test">
+                    </div>
+                    <div class="form-check col-sm-4 col-lg-2 col-xl-1 mt-2">
+                        <label for="age" class="active">Age</label>
+                        <input placeholder="" id="age" type="text" class="validate" v-model="age">
+                    </div>
+                </div>
+
+                <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                    <label for="email" class="active">Email</label>
+                    <input placeholder="" id="email" type="text" class="validate" v-model="email">
+                </div>
+
+                <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                    <label for="income" class="active">What is their income?</label>
+                    <input placeholder="" id="income" type="text" class="validate" v-model="income">
+                </div>
+
+                <hr>
+
+                <div style="padding-left: 1.5rem">
+                    <h3>Loan Details</h3>
+                </div>
+
+                <div class="mt-3">
+                    <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3">
+                        <label for="loan_amnt" class="active">How much is the loan?</label>
+                        <input placeholder="" id="loan_amnt" type="text" class="validate" v-model="loan_amnt">
+                    </div>
+
+
+                    <div class="form-check col-sm-12 col-lg-6 col-xl-2 mt-3">
+                        <label for="loan_grade" class="active">What is their loan grade?</label>
+                        <select v-model="loan_grade" style="display: block">
+                            <option disabled value="">Please select one</option>
+                            <option value="0">A</option>
+                            <option value="1">B</option>
+                            <option value="2">C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-check col-sm-12 col-lg-6 col-xl-4 mt-3">
+                        <label for="loan_int_rate" class="active">What is their loan interest rate? (%)</label>
+                        <input placeholder="" id="loan_int_rate" type="text" class="validate" v-model="loan_int_rate">
+                    </div>
+
+                    <div class="form-check mt-3">
+                        <label for="test" class="active" style="font-size: 16px;">Is loan used for ownership
+                            rent?</label>
+                        <!-- Default checked radio -->
+                        <div class="d-flex flex-row mt-1" style="font-size: 16px;">
+                            <div class="form-check" style="margin-right:10px;">
+                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                    name="owner1" id="owner1" value="1" v-model="person_home_ownership_rent"
+                                    @change="whatOwner">
+                                <label class="form-check-label" for="owner1" style="vertical-align: middle;">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                    name="owner0" id="owner0" value="0" v-model="person_home_ownership_rent"
+                                    @change="whatOwner">
+                                <label class="form-check-label" for="owner0">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-check col-sm-12 col-lg-6 col-xl-3 mt-3">
+                        <label for="defaulted" class="active">Have they defaulted before?</label>
+                        <div class="d-flex flex-row mt-1" style="font-size: 16px;">
+                            <div class="form-check" style="margin-right:10px;">
+                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                    name="default1" id="default1" value="1" v-model="defaulted" @change="whatOwner">
+                                <label class="form-check-label" for="owner1" style="vertical-align: middle;">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" style="opacity: 1; pointer-events: auto;" type="radio"
+                                    name="default0" id="default0" value="0" v-model="defaulted" @change="whatOwner">
+                                <label class="form-check-label" for="owner0">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div style="padding-left: 1.5rem">
+                    <a class="waves-effect waves-light btn" v-on:click="predictCredit">Predict</a>
+                </div>
+
+                <hr class="mt-5">
+
+
+                <div id="p_result" style="padding-left: 1.5rem" class="mt-3">
+                    <h3>Prediction Result</h3>
+                    <div v-if="class_result == 'Default'">
+                        <p>Customer will default!</p>
+                        <img class="m-5" src="/static/cross.png" height="250" alt="" loading="lazy" />
+                    </div>
+                    <div v-else-if="class_result == 'Non-default'">
+                        <p>Customer will not default!</p>
+                        <img class="m-5" src="/static/tick.png" height="250" alt="" loading="lazy" />
+                    </div>
+
+                    <h4>Additional Details</h4>
+                    <p>Recommended Loan Amount:
+                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ regress_result }}</a>
+                    </p>
+                    <p>Classification Confidence: 
+                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ class_confi }}</a>
+                    </p>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+
+    <script type="text/javascript" src="credit.js">
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+</body>
+
+</html>

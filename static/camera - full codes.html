@@ -1,0 +1,114 @@
+<html>
+
+    <script>
+        // Starts the web cam
+        //
+        function startWebcam() {
+            navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia (
+                    {video: { width: 640, height: 480 }, audio: false},
+
+                    // successCallback
+                    function(localMediaStream) {
+                        var video = document.getElementById('video')
+
+                        // Assign the stream to the video player
+                        video.srcObject = localMediaStream;     
+                        
+                        // Start the video
+                        video.play();
+                    },
+
+                    // errorCallback
+                    function(err) {
+                        console.log("The following error occured: " + err);
+                    }
+                );
+            } 
+            else 
+            {
+                console.log("getUserMedia not supported");
+            }  
+        }
+
+
+        // Captures an image frame (in PNG format) from the video 
+        // and returns it.
+        //
+        function takePhoto() 
+        {
+            var canvas = document.getElementById('canvas');
+            var video = document.getElementById('video')
+            var context = canvas.getContext('2d');
+            
+            // Set the canvas’s width and height
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Draws the video frame onto the canvas
+            context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        }
+
+
+        // Extract the blob from the canvas and post it up to our API
+        //
+        function postPhoto()
+        {
+            var canvas = document.getElementById('canvas');
+                canvas.toBlob(function(photoBlob) {
+                    const formData = new FormData();
+                    formData.append('file', photoBlob);
+
+                    fetch('http://127.0.0.1:8000/predictImage', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(result => {
+                        // Display the results here.
+                        alert(result.result[0].name)    
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });    
+                })
+        }
+
+
+        
+        // Initialize the application by starting the web cam
+        // This method is called by the body's onload event.
+        //
+        function init() {
+
+            // When the take photo button is clicked, takes a photo from the video frame,
+            // displays it in the canvas, uploads it to our API and displays
+            // the result.
+            //
+            document.getElementById('takePhotoButton').addEventListener('click', function() {
+                
+                takePhoto();
+
+                postPhoto();
+            })
+
+            startWebcam();
+        }
+
+    </script>
+    <body onload="init();">
+        
+        <div>
+            <h1>Current video stream</h1>
+            <button id="takePhotoButton">Take Photo</button>
+            <br/>
+
+            <video id="video" controls autoplay></video>
+            <canvas id="canvas"></canvas>            
+
+    </div>
+
+    </body>
+    
+</html>
