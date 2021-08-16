@@ -1,0 +1,73 @@
+<html>
+
+    <script>
+        // Display the contents of the file as an image
+        //
+        function displayPhotoFromFile()
+        {
+            var fileBlob = document.getElementById('fileInput').files[0]
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('imagePhoto').src = e.target.result
+            };
+            reader.readAsDataURL(fileBlob);
+        }            
+        
+
+        // Extract the blob from the canvas and post it up to our API
+        //
+        function postPhotoFromFile()
+        {
+            var fileBlob = document.getElementById('fileInput').files[0]
+
+            const formData = new FormData();
+            formData.append('file', fileBlob);
+
+            fetch('http://127.0.0.1:8000/predictImage', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Display the results here.
+                alert(result.result[0].name)    
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });    
+        }
+
+
+        
+        // Initialize the application by starting the web cam
+        // This method is called by the body's onload event.
+        //
+        function init() {
+
+            // When the take photo button is clicked, takes a photo from the video frame,
+            // displays it in the canvas, uploads it to our API and displays
+            // the result.
+            //
+            document.getElementById('uploadPhotoButton').addEventListener('click', function() {
+                
+                displayPhotoFromFile();
+
+                postPhotoFromFile();
+            })
+
+        }
+
+    </script>
+    <body onload="init();">
+        
+        <div>
+            <h1>Select Photo to Upload</h1>
+            <input type="file" id="fileInput">  
+            <button id="uploadPhotoButton">Upload Photo</button>
+            <img id="imagePhoto" />
+    </div>
+
+    </body>
+    
+</html>

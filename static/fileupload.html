@@ -1,0 +1,56 @@
+<html>
+
+    <script>
+        // Display the contents of the file as an image
+        //
+        function displayPhotoFromFile()
+        {
+            // TODO:
+            // Load up the file contents using the FileReader object
+            // and display it in the image 
+        }            
+        
+
+        // Extract the blob from the canvas and post it up to our API
+        //
+        function postPhotoFromFile()
+        {
+            // TODO:
+            // Load up the file contents using the FileReader object,
+            // construct a FormData object and POST it to our API.
+
+        }
+
+
+        
+        // Initialize the application by starting the web cam
+        // This method is called by the body's onload event.
+        //
+        function init() {
+
+            // When the take photo button is clicked, takes a photo from the video frame,
+            // displays it in the canvas, uploads it to our API and displays
+            // the result.
+            //
+            document.getElementById('uploadPhotoButton').addEventListener('click', function() {
+                
+                displayPhotoFromFile();
+
+                postPhotoFromFile();
+            })
+
+        }
+
+    </script>
+    <body onload="init();">
+        
+        <div>
+            <h1>Select Photo to Upload</h1>
+            <input type="file" id="fileInput">  
+            <button id="uploadPhotoButton">Upload Photo</button>
+            <img id="imagePhoto" />
+    </div>
+
+    </body>
+    
+</html>
