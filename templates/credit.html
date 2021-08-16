@@ -6,13 +6,12 @@
 
 <body>
     <header>
-
-        <script src="../demo2app_files/vue@next"></script>
+        <script src="{{ url_for('static',filename='styles/demo2app_files/vue@next') }}"></script>
         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="../demo2app_files/materialize.min.css">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/demo2app_files/materialize.min.css') }}">
 
         <!-- Compiled and minified JavaScript -->
-        <script src="../demo2app_files/materialize.min.js.download"></script>
+        <script src="{{ url_for('static',filename='styles/demo2app_files/materialize.min.js.download') }}"></script>
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -86,14 +85,14 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar bg-white">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="/static/credit.html" class="list-group-item list-group-item-action py-2 ripple active"
+                    <a href="{{ url_for('credit') }}" class="list-group-item list-group-item-action py-2 ripple active"
                         aria-current="true">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Credit Prediction</span>
                     </a>
-                    <a href="/static/customers.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="{{ url_for('customers') }}" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-chart-area fa-fw me-3"></i><span>Prediction Results</span>
                     </a>
-                    <a href="/static/records.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="{{ url_for('records') }}" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book fa-fw me-3"></i><span>Loan Records</span>
                     </a>
                 </div>
@@ -113,8 +112,8 @@
 
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="#">
-                    <img src="/static/logo.png" height="25" alt="" loading="lazy" />
+                <a class="navbar-brand" href="{{ url_for('logout') }}">
+                    <img src="{{ url_for('static',filename='images/logo.png') }}" height="25" alt="" loading="lazy" />
                 </a>
 
             </div>
@@ -247,11 +246,11 @@
                     <h3>Prediction Result</h3>
                     <div v-if="class_result == 'Default'">
                         <p>Customer will default!</p>
-                        <img class="m-5" src="/static/cross.png" height="250" alt="" loading="lazy" />
+                        <img class="m-5" src="{{ url_for('static',filename='images/cross.png') }}" height="250" alt="" loading="lazy" />
                     </div>
                     <div v-else-if="class_result == 'Non-default'">
                         <p>Customer will not default!</p>
-                        <img class="m-5" src="/static/tick.png" height="250" alt="" loading="lazy" />
+                        <img class="m-5" src="{{ url_for('static',filename='images/tick.png') }}" height="250" alt="" loading="lazy" />
                     </div>
 
                     <h4>Additional Details</h4>
@@ -275,7 +274,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
 
-    <script type="text/javascript" src="credit.js">
+    <script type="text/javascript" src="{{ url_for('static',filename='javascript/credit.js') }}">
     </script>
 
     <script>

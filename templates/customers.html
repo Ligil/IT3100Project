@@ -7,12 +7,12 @@
 <body>
     <header>
 
-        <script src="../demo2app_files/vue@next"></script>
+        <script src="{{ url_for('static',filename='styles/demo2app_files/vue@next') }}"></script>
         <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="../demo2app_files/materialize.min.css">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/demo2app_files/materialize.min.css') }}">
 
         <!-- Compiled and minified JavaScript -->
-        <script src="../demo2app_files/materialize.min.js.download"></script>
+        <script src="{{ url_for('static',filename='styles/demo2app_files/materialize.min.js.download') }}"></script>
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
@@ -82,14 +82,14 @@
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar bg-white">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="/static/credit.html" class="list-group-item list-group-item-action py-2 ripple"
+                    <a href="{{ url_for('credit') }}" class="list-group-item list-group-item-action py-2 ripple"
                         aria-current="true">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Credit Prediction</span>
                     </a>
-                    <a href="/static/customers.html" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="{{ url_for('customers') }}" class="list-group-item list-group-item-action py-2 ripple active">
                         <i class="fas fa-chart-area fa-fw me-3"></i><span>Prediction Results</span>
                     </a>
-                    <a href="/static/records.html" class="list-group-item list-group-item-action py-2 ripple active">
+                    <a href="{{ url_for('records') }}" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-book fa-fw me-3"></i><span>Loan Records</span>
                     </a>
                 </div>
@@ -109,8 +109,8 @@
 
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="#">
-                    <img src="/static/logo.png" height="25" alt="" loading="lazy" />
+                <a class="navbar-brand" href="{{ url_for('logout') }}">
+                    <img src="{{ url_for('static',filename='images/logo.png') }}" height="25" alt="" loading="lazy" />
                 </a>
 
             </div>
@@ -126,67 +126,30 @@
 
         <div id="application" style="padding: 40px" data-v-app="">
             <div class="card-panel">
-                <h1 style="padding-left: 1.5rem">Loan Records</h1>
-                <p style="padding-left: 1.5rem">Records of existing loans with customers</p>
+                <h1 style="padding-left: 1.5rem">Prediction Results</h1>
+                <p style="padding-left: 1.5rem">Click a row to view it in more detail</p>
 
                 <hr>
 
-
-
-                <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <div>
-                                <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
-                                    data-mdb-target="#flush-collapseOne" aria-expanded="false"
-                                    aria-controls="flush-collapseOne" style="font-size: 16px;">
-                                    Add Loan Record
-                                </button>
-                            </div>
-
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse"
-                            aria-labelledby="flush-headingOne" data-mdb-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-
-                
-                                <div class="mt-2">
-                                    <h3>Customer Details</h3>
-                                </div>
-                                <div class="d-flex flex-row" style="padding: 0px">
-                                    <div class="col-sm-6 col-lg-6 col-xl-3 mt-2" style="padding-right: 15px;">
-                                        <label for="name" class="active">Name</label>
-                                        <input placeholder="" id="name" type="text" class="validate" v-model="name" @change="test">
-                                    </div>
-                                    <div class="col-sm-4 col-lg-2 col-xl-1 mt-2">
-                                        <label for="age" class="active">Age</label>
-                                        <input placeholder="" id="age" type="text" class="validate" v-model="age">
-                                    </div>
-                                </div>
-                
-                                <div class="col-sm-6 col-lg-4 col-xl-4 mt-3">
-                                    <label for="email" class="active">Email</label>
-                                    <input placeholder="" id="email" type="text" class="validate" v-model="email">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                <div class="d-flex flex-row w-100" style="padding: 1rem 1.25rem">
+                    <p class="col-sm-3 font-weight-bold">Customer Name</p>
+                    <p class="col-sm-5 font-weight-bold">Prediction made time</p>
+                    <p class="col-sm-4 font-weight-bold">Prediction</p>
                 </div>
 
-                <hr>
+                <hr class="mt-0">
 
                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item" v-for="(loan, index) in loans">
+                    <div class="accordion-item" v-for="(prediction, index) in predictions">
 
                         <h2 class="accordion-header" :id="'flush-heading' + index">
                             <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse"
                                 :data-mdb-target="'#flush-collapse'+index" aria-expanded="false"
                                 :aria-controls="'flush-collapse'+index">
                                 <div class="d-flex flex-row w-100">
-                                    <p class="col-sm-3">{{ loan.name }}</p>
-                                    <p class="col-sm-5">{{ loan.datetime }}</p>
-                                    <p>{{ loan.loan }}</p>
+                                    <p class="col-sm-3">{{ '{{ prediction.name }}' }}</p>
+                                    <p class="col-sm-5">{{ '{{ prediction.datetime }}' }}</p>
+                                    <p>{{ '{{ prediction.prediction }}' }}</p>
                                 </div>
                             </button>
                         </h2>
@@ -198,54 +161,59 @@
                                     <tbody>
                                         <tr>
                                             <td style="width:15%; min-width: 100px;">Firebase Id: </td>
-                                            <td>{{ loan.id }}</td>
+                                            <td>{{ '{{ prediction.id }}' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Customer Name: </td>
-                                            <td>{{ loan.name }}</td>
+                                            <td>Customer Name:  </td>
+                                            <td>{{ '{{ prediction.name }}' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Customer Email: </td>
-                                            <td>{{ loan.email }}</td>
+                                            <td>Customer Email:  </td>
+                                            <td>{{ '{{ prediction.email }}' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>loan made time: </td>
-                                            <td>{{ loan.datetime }}</td>
+                                            <td>Prediction made time:  </td>
+                                            <td>{{ '{{ prediction.datetime }}' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Income: </td>
-                                            <td>${{ loan.income }}</td>
+                                            <td>${{ '{{ prediction.income }}' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Loan Amount:</td>
-                                            <td>${{ loan.loan_amnt }}</td>
+                                            <td>${{ '{{ prediction.loan_amnt }}' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Loan Interest Rate:</td>
-                                            <td>{{ loan.loan_int_rate }}% Yearly</td>
+                                            <td>{{ '{{ prediction.loan_int_rate }}' }}% Yearly</td>
                                         </tr>
                                         <tr>
                                             <td>Loan used for rent?: </td>
-                                            <td v-if="loan.person_home_ownership_rent === '1'">
+                                            <td v-if="prediction.person_home_ownership_rent === '1'">
                                                 Yes
                                             </td>
-                                            <td v-else-if="loan.person_home_ownership_rent === '0'">
+                                            <td v-else-if="prediction.person_home_ownership_rent === '0'">
                                                 No
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>loan: </td>
-                                            <td>{{ loan.loan }}</td>
+                                            <td>Prediction:  </td>
+                                            <td>{{ '{{ prediction.prediction }}' }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Confidence: </td>
-                                            <td>{{ loan.confidence }}</td>
+                                            <td>Confidence:  </td>
+                                            <td>{{ '{{ prediction.confidence }}' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <div >
+                                    <a class="waves-effect waves-light btn" v-on:click="predictCredit">Add to Loan Records</a>
+                                </div>
+
                             </div>
                         </div>
-
+                        
                     </div>
                 </div>
 
@@ -257,7 +225,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
 
-    <script type="text/javascript" src="records.js">
+    <script type="text/javascript" src="{{ url_for('static',filename='javascript/customers.js') }}">
     </script>
 
 </body>

@@ -60,16 +60,28 @@ def register():
 
     return render_template('Register.html', form=form, names=names)
 
-@app.route("/logout")
+@app.route("/logout", methods=['GET', 'POST'])
 def logout():
     session.pop('logged_in', None)
-    return redirect(url_for('index'))
+    return redirect('/')
 
-@app.route("/home", methods=['GET', 'POST'])
-def home():
-    if session.get('logged_in') != True:
-        return redirect('/')
-    return render_template('placeholder.html')
+@app.route("/credit", methods=['GET', 'POST'])
+def credit():
+    # if session.get('logged_in') != True:
+    #     return redirect('/')
+    return render_template('credit.html')
+
+@app.route("/customers", methods=['GET', 'POST'])
+def customers():
+    # if session.get('logged_in') != True:
+    #     return redirect('/')
+    return render_template('customers.html')
+
+@app.route("/records", methods=['GET', 'POST'])
+def records():
+    # if session.get('logged_in') != True:
+    #     return redirect('/')
+    return render_template('records.html')
 
 if __name__ == "__main__":
     app.run(debug=False)
