@@ -69,34 +69,28 @@ async function sendImage(image,name) {
 }
 
 
-function getResults(name, callback) {
-    var count = 0;
+async function getResults(name, callback){
     var yesCount = 0;
     var noCount = 0;
-    return new Promise(function (resolve) {
-        var testInterval = setInterval(function(){
-            getSingleResult(name).then(function(result) {
-                console.log(result)
-                if(result['verified'] == "True"){
-                    console.log(result['max_similarity']);
-                    yesCount+=1;
-                } else {
-                    console.log(result['max_similarity']);
-                    noCount+=1;
-                }
-            });
-            console.log(yesCount);
-            console.log(noCount);
-            if (yesCount+noCount>5){
-                if (yesCount>noCount) {
-                    clearInterval(testInterval);
-                    resolve("True");
-                } else {
-                    clearInterval(testInterval);
-                    resolve("False");
-                }
-            };
-        },2000)
+    for (; yesCount < 3 && noCount < 3 ;) {
+        const response = await getSingleResult(name);
+        if(response['verified'] == "True"){
+            console.log("Max similarity :",response['max_similarity']);
+            yesCount+=1;
+        } else {
+            console.log("Max similarity :",response['max_similarity']);
+            noCount+=1;
+        }
+        console.log('Yes Count :',yesCount);
+        console.log('No Count :',noCount);
+    }
+
+    return new Promise((resolve, reject) => {
+        if (yesCount > 2) {
+            resolve("True");
+        } else if (noCount > 2) {
+            resolve("False");
+        }
     });
 }
 
@@ -150,6 +144,7 @@ startFRBtn.addEventListener('click', () => {
     photoError.hidden = true;
     getResults(loginName.value)
         .then(function(x) {
+            console.log(x);
             if(x == "True") {
                 FRAuth.value = "True";
                 loginForm.submit();
@@ -158,5 +153,6 @@ startFRBtn.addEventListener('click', () => {
             }
         })
 })
+
 
 
