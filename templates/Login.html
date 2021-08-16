@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% import "bootstrap/wtf.html" as wtf %}
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/Login.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-custom">
+  <!-- Brand/logo -->
+  <a class="navbar-brand" href="#">
+    <img src="{{ url_for('static',filename='images/logo2.png') }}" style="width:100%">
+  </a>
+</nav>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <h1 id="loginHeader">Staff Login</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form method="POST" action="/" id="loginForm">
+      {{ form.hidden_tag() }}
+      {{ wtf.form_field(form.name, class="fadeIn second", placeholder="Enter your name here") }}
+      <p class="errorMsg" id="nameError" hidden></p>
+      {{ wtf.form_field(form.password, class="fadeIn third", placeholder="Enter your password here") }}
+      <p class="errorMsg" id="passwordError" hidden></p>
+<!--      <input type="text" id="loginName" class="fadeIn second" name="name" placeholder="Name">-->
+<!--      <p class="errorMsg" id="nameError" hidden>Please enter your name</p>-->
+<!--      <input type="password" id="loginPassword" class="fadeIn third" name="password" placeholder="Password">-->
+<!--      <p class="errorMsg" id="passwordError" hidden>Please enter your password</p>-->
+<!--      <input type="hidden" name="FRAuth" value="False" id="FRAuth">-->
+      {{ wtf.form_field(form.FRAuth, value="False") }}
+      <input type="button" class="fadeIn fourth" value="Login" id="submitBtn">
+      <input type="button" class="fadeIn fourth" value="Use facial recognition" id="frBtn">
+    </form>
+
+    <div id="formFooter">
+      <a class="underlineHover" id="registerBtn" href="/register">Register</a>
+    </div>
+
+    <div id="videoModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class="FRTitle">Facial Verification</h2>
+        <h3 class="FRDesc">Click start then look at the camera for a few seconds</h3>
+        <p class="errorMsg" id="photoError" hidden>Facial verification failed. Click the start button to retry</p>
+        <video id="player" autoplay playsinline style="pointer-events: none;"></video>
+        <canvas id="canvas" width="500" height="500" hidden></canvas>
+        <input type="button" class="fadeIn fourth" value="Start facial verification" id="startFRBtn">
+      </div>
+
+    </div>
+
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+  let nameList = {{names | safe}}
+</script>
+<script type="text/javascript" src="{{ url_for('static',filename='javascript/Login.js') }}"></script>
+</html>
