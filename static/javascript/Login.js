@@ -13,6 +13,8 @@ const player = document.getElementById('player');
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const close = document.getElementsByClassName("close")[0];
+const DBtn = document.getElementById('DBtn');
+const UBtn = document.getElementById('UBtn');
 
 // When the user clicks on <span> (x), close the modal
 close.onclick = function() {
@@ -60,7 +62,8 @@ async function sendImage(image,name) {
     fd.append('file', image);
     fd.append('name', name)
 
-    const response = await fetch('http://chuaqihan-192181r-faceverificationserver.southeastasia.azurecontainer.io/login', {
+//    const response = await fetch('http://127.0.0.1:8000/login', {
+    const response = await fetch('http://it3100-chuaqihan-finalapiserver.southeastasia.azurecontainer.io/login', {
         method: 'POST',
         body: fd
     })
@@ -75,10 +78,10 @@ async function getResults(name, callback){
     for (; yesCount < 3 && noCount < 3 ;) {
         const response = await getSingleResult(name);
         if(response['verified'] == "True"){
-            console.log("Max similarity :",response['max_similarity']);
+            console.log("Closest distance :",response['distance']);
             yesCount+=1;
         } else {
-            console.log("Max similarity :",response['max_similarity']);
+            console.log("Closest distance :",response['distance']);
             noCount+=1;
         }
         console.log('Yes Count :',yesCount);
@@ -152,6 +155,32 @@ startFRBtn.addEventListener('click', () => {
                 photoError.hidden = false;
             }
         })
+})
+
+DBtn.addEventListener('click', () => {
+    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", "http://127.0.0.1:8000/clearData", true);
+    xhr.open("POST", "http://it3100-chuaqihan-finalapiserver.southeastasia.azurecontainer.io/clearData", true);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        value: ""
+    }));
+})
+
+UBtn.addEventListener('click', () => {
+    var xhr = new XMLHttpRequest();
+//    xhr.open("POST", "http://127.0.0.1:8000/getUsers", true);
+    xhr.open("POST", "http://it3100-chuaqihan-finalapiserver.southeastasia.azurecontainer.io/getUsers", true);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload  = function() {
+       var jsonResponse = xhr.response;
+       console.log(jsonResponse)
+    };
+    xhr.send(JSON.stringify({
+        value: ""
+    }));
 })
 
 

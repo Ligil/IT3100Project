@@ -16,8 +16,8 @@
 
 <nav class="navbar navbar-expand-sm navbar-custom">
   <!-- Brand/logo -->
-  <a class="navbar-brand" href="#">
-    <img src="{{ url_for('static',filename='images/logo2.png') }}" style="width:100%">
+  <a class="navbar-brand" href="/">
+    <img src="{{ url_for('static',filename='images/logo.png') }}" style="width:50%">
   </a>
 </nav>
 <div class="wrapper fadeInDown">
@@ -41,9 +41,11 @@
 <!--      <input type="password" id="loginPassword" class="fadeIn third" name="password" placeholder="Password">-->
 <!--      <p class="errorMsg" id="passwordError" hidden>Please enter your password</p>-->
 <!--      <input type="hidden" name="FRAuth" value="False" id="FRAuth">-->
-      {{ wtf.form_field(form.FRAuth, value="False") }}
+      {{ wtf.form_field(form.FRAuth) }}
       <input type="button" class="fadeIn fourth" value="Login" id="submitBtn">
       <input type="button" class="fadeIn fourth" value="Use facial recognition" id="frBtn">
+      <input type="button" class="fadeIn fourth" value="Delete data" id="DBtn" hidden>
+      <input type="button" class="fadeIn fourth" value="Get Users" id="UBtn" hidden>
     </form>
 
     <div id="formFooter">
