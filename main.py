@@ -17,7 +17,8 @@ Bootstrap(app)
 class LoginForm(FlaskForm):
     name = StringField('Name')
     password = PasswordField('Password')
-    FRAuth = HiddenField('FRAuth')
+    FRAuth = HiddenField('FRAuth', default="False")
+
 
 class RegisterForm(FlaskForm):
     name = StringField('Name')
@@ -34,11 +35,13 @@ def login():
             if check_password_hash(d[form.name.data],form.password.data):
                 session["Name"] = form.name.data
                 session['logged_in'] = True
+                return redirect(url_for('credit'))
         elif form.FRAuth.data == "True":
             session["Name"] = form.name.data
             session['logged_in'] = True
+            return redirect(url_for('credit'))
 
-        return redirect(url_for('home'))
+        return redirect('/')
 
         # if check_password_hash(d[form.name.data],form.password.data):
     d.close()
@@ -67,18 +70,21 @@ def logout():
 
 @app.route("/credit", methods=['GET', 'POST'])
 def credit():
-    # if session.get('logged_in') != True:
-    #     return redirect('/')
+    if session.get('logged_in') != True:
+        return redirect('/')
     return render_template('credit.html')
 
 @app.route("/customers", methods=['GET', 'POST'])
 def customers():
-    # if session.get('logged_in') != True:
-    #     return redirect('/')
+    if session.get('logged_in') != True:
+        return redirect('/')
     return render_template('customers.html')
 
 @app.route("/records", methods=['GET', 'POST'])
 def records():
+    if session.get('logged_in') != True:
+        return redirect('/')
+
     id = None
     if request.form.get("id") != None:
         id = request.form["id"]

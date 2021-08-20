@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -166,6 +166,15 @@
                 <div style="padding-left: 1.5rem">
                     <h3>Customer Details</h3>
                 </div>
+
+
+                <div class="form-check col-sm-6 col-lg-4 col-xl-4 mt-3" style="margin-bottom:15px;">
+                    <label for="email" class="active" style="margin-bottom:10px;">Input image of customer IC to retrieve text (Optional)</label>
+                    <br>
+                    <input type="file" id="theFileInput" class="form-control-file" accept="image/png, image/jpeg"/>
+                </div>
+
+
                 <div class="d-flex flex-row">
                     <div class="form-check col-sm-8 col-lg-6 col-xl-3 mt-2">
                         <label for="name" class="active">Name</label>
@@ -285,6 +294,12 @@
                     </div>
 
                     <h4>Additional Details</h4>
+                    <p>Recommended Loan Amount:
+                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ '{{regress_result}}' }}</a>
+                    </p>
+                    <p>Classification Confidence: 
+                        <a href="#" data-toggle="tooltip" title="A loan amount closer to this value is more likely for the customer to not default.">{{ '{{class_confi}}' }}</a>
+                    </p>
 
                     <div class="d-flex flex-row">
 
@@ -316,6 +331,38 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
 
     <script type="text/javascript" src="{{ url_for('static',filename='javascript/credit.js') }}">
+    </script>
+
+    <script type="text/javascript">
+        const theFileInput = document.getElementById('theFileInput');
+        const name = document.getElementById('name');
+        const age = document.getElementById('age');
+
+        async function sendIC(image) {
+            // add file to FormData object
+            const fd = new FormData();
+            fd.append('file', image);
+
+            const response = await fetch('http://it3100-chuaqihan-finalapiserver.southeastasia.azurecontainer.io/OCR', {
+<!--            const response = await fetch('http://127.0.0.1:8000/OCR', {-->
+                method: 'POST',
+                body: fd
+            })
+
+            return await response.json();
+        }
+
+
+        theFileInput.onchange = function() {
+            sendIC(theFileInput.files[0])
+            .then(function(response) {
+                const allTexts = response.result;
+                console.log(allTexts);
+                name.value = allTexts['Name'];
+                age.value = allTexts['Age'];
+            })
+        };
+
     </script>
 
 </body>

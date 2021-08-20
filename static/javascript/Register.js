@@ -63,7 +63,8 @@ async function sendImage(image,name) {
     fd.append('file', image);
     fd.append('name', name)
 
-    const response = await fetch('http://chuaqihan-192181r-faceverificationserver.southeastasia.azurecontainer.io/register', {
+//    const response = await fetch('http://127.0.0.1:8000/register', {
+    const response = await fetch('http://it3100-chuaqihan-finalapiserver.southeastasia.azurecontainer.io/register', {
         method: 'POST',
         body: fd
     })
