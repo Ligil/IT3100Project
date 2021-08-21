@@ -109,7 +109,7 @@ const app = {
 
         addToLoan: function () {
 
-            fetch('http://127.0.0.1:8000/predictCredit', {
+            fetch('http://it3100-191885t-it3100project.southeastasia.azurecontainer.io/predictCredit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
